@@ -1,6 +1,7 @@
 # PokeDox
 
 PokeDox is a browser-based Pokémon encyclopedia. Search the National Pokédex by name or number, filter by type and generation, and open entries for statistics, abilities, evolution families, and defensive type matchups. Compare two Pokémon or build a team of up to six. Favorites, the team, recently viewed entries, and the theme preference are saved in the current browser.
+🌐 **Live Site:** [PokeDox](https://nick-vns.github.io/js-pokedex/)
 
 ## Screenshots
 
