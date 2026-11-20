@@ -1,0 +1,23 @@
+{
+  "name": "pokedox",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^22.13.0 || >=24.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build --outDir build",
+    "preview": "vite preview --outDir build",
+    "lint": "eslint src test",
+    "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0",
+    "vite": "^8.3.8"
+  }
+}
