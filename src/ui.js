@@ -1,3 +1,4 @@
+import { routeUrl } from './routes.js';
 import { artwork, normalize } from './api.js';
 import { dexNumber, displayName, selectEntries } from './catalog.js';
 import fallback from '../img/icons8-pokeball-48.png';
@@ -15,7 +16,7 @@ export function h(tag, attrs = {}, ...children) {
   return node;
 }
 
-export const link = (href, label, className) => h('a', { href, 'data-route': '', class: className }, label);
+export const link = (href, label, className) => h('a', { href: routeUrl(href), 'data-route': '', class: className }, label);
 export const button = (label, onclick, attrs = {}) => h('button', { type: 'button', onclick, ...attrs }, label);
 export const pathFor = name => '/pokemon/' + encodeURIComponent(name);
 export const nameOf = entry => displayName(entry.name);

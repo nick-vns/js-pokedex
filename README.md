@@ -46,6 +46,21 @@ Pokémon artwork is sourced from the PokéAPI sprites repository. Favorites, tea
 
 No environment variables or API key are required.
 
+## Deploy to GitHub Pages
+
+1. On GitHub, open the repository and go to **Settings → Pages → Build and deployment**. Select **GitHub Actions** as the source. This lets the workflow build the app before publishing it. [GitHub Pages setup](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow)
+2. Merge the changes into `main` to trigger the deployment. If the changes are already on `main`, use **Actions → Deploy PokeDox to GitHub Pages → Run workflow**.
+3. Open the completed workflow and click the deployment URL. For this repository, the expected address is `https://nick-vns.github.io/js-pokedex/`. Open a Pokémon, copy its URL, and load it in a new tab. Pages links look like `/js-pokedex/#/pokemon/pikachu` and support direct visits and refreshes.
+
+If the workflow can't configure Pages, check that **GitHub Actions** is selected as the publishing source. The workflow gets the site's base path from GitHub, so project sites and custom domains use the same build process.
+
+To preview the GitHub Pages build locally:
+
+```sh
+npm run build -- --mode github-pages --base /js-pokedex/
+npm run preview -- --mode github-pages --base /js-pokedex/
+```
+
 ## Deploy to Vercel
 
 1. Push this repository and its lockfile to a Git provider connected to your Vercel account. Vercel uses the branch you import as its build source.

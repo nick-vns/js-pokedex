@@ -1,3 +1,4 @@
+import { routeUrl } from './routes.js';
 import { getEntry, getEvolutionChain, getType, normalize, resourceId } from './api.js';
 import { dexNumber, displayName, effectiveness, evolutionCondition, STATS } from './catalog.js';
 import { TEAM_LIMIT } from './storage.js';
@@ -31,7 +32,7 @@ function familyNode(node, current, root = false) {
   const children = Array.isArray(node.evolves_to) ? node.evolves_to.map(child => familyNode(child, current)).filter(Boolean) : [];
   return h('li', { class: 'family-node' },
     root ? null : h('span', { class: 'evo-condition' }, '↓ ', [...new Set(conditions)].join(' or ') || 'Condition unavailable'),
-    h('a', { href: pathFor(species.name), 'data-route': '', class: 'evo-entry',
+    h('a', { href: routeUrl(pathFor(species.name)), 'data-route': '', class: 'evo-entry',
       'aria-current': species.name === current ? 'page' : null },
     picture({ name: species.name, id: resourceId(species) }, { decorative: true }), nameOf(species)),
     children.length ? h('ul', { class: 'family' }, children) : null);

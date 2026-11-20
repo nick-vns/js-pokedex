@@ -1,3 +1,4 @@
+import { replaceRoute } from './routes.js';
 import { getGeneration, getGenerationList, getType, normalize, resourceId, artwork } from './api.js';
 import { displayName, PAGE_SIZE, selectEntries, SORTS, TYPES } from './catalog.js';
 import { button, errorNotice, h, link, notice, pathFor, pokemonCard, skeleton } from './ui.js';
@@ -114,7 +115,7 @@ export function explore(main, app, params) {
         ['sort', sort.value === 'number' ? '' : sort.value], ['page', currentPage === 1 ? '' : currentPage]]) {
         if (value) searchParams.set(key, value);
       }
-      history.replaceState(history.state, '', '/' + (searchParams.size ? '?' + searchParams : ''));
+      replaceRoute('/', searchParams);
       count.textContent = new Intl.NumberFormat('en').format(matching.length) + ' Pokémon found';
       if (!matching.length) {
         grid.replaceChildren(notice('No Pokémon found', 'Try a different name, number, or combination of filters.',
