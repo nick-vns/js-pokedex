@@ -1,4 +1,5 @@
 import './styles.css';
+import { readRoute, routeUrl } from './routes.js';
 import { getPokemon, getPokemonList, resourceId } from './api.js';
 import { displayName } from './catalog.js';
 import { readState, writeState, updateEntries } from './storage.js';
@@ -8,6 +9,15 @@ import { compare, savedPage } from './collections.js';
 import { link, notice } from './ui.js';
 
 const main = document.querySelector('main');
+for (const anchor of document.querySelectorAll('.top a[data-route]')) {
+  anchor.setAttribute('href', routeUrl(anchor.getAttribute('href')));
+}
+document.querySelector('.skip').addEventListener('click', event => {
+  event.preventDefault();
+  main.focus();
+  main.scrollIntoView();
+});
+
 const theme = document.querySelector('#theme');
 const announcement = document.querySelector('#announcement');
 const systemTheme = matchMedia('(prefers-color-scheme: dark)');
@@ -69,11 +79,10 @@ systemTheme.addEventListener('change', applyTheme);
 applyTheme();
 
 function render() {
-  const route = location.pathname.replace(/\/$/, '') || '/';
-  const params = new URLSearchParams(location.search);
+  const { pathname: route, params } = readRoute();
   const activeRoute = route.startsWith('/pokemon/') ? '/' : route;
   for (const nav of document.querySelectorAll('.top nav a')) {
-    if (nav.getAttribute('href') === activeRoute) nav.setAttribute('aria-current', 'page');
+    if (nav.getAttribute('href') === routeUrl(activeRoute)) nav.setAttribute('aria-current', 'page');
     else nav.removeAttribute('aria-current');
   }
   document.title = route === '/' ? 'PokeDox — The National Pokédex' : 'PokeDox';
@@ -87,7 +96,7 @@ function render() {
 }
 
 function navigate(url) {
-  if (url.pathname + url.search !== location.pathname + location.search) history.pushState(null, '', url);
+  if (url.href !== location.href) history.pushState(null, '', url);
   render();
   window.scrollTo(0, 0);
   main.focus({ preventScroll: true });
@@ -105,7 +114,7 @@ document.querySelector('#header-search').addEventListener('submit', event => {
   const params = new URLSearchParams();
   if (input.value.trim()) params.set('q', input.value.trim());
   input.value = '';
-  navigate(new URL('/' + (params.size ? '?' + params : ''), location.origin));
+  navigate(new URL(routeUrl('/' + (params.size ? '?' + params : '')), location.origin));
   main.querySelector('.hero-search input')?.focus();
 });
 window.addEventListener('popstate', render);

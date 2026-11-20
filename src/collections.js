@@ -1,3 +1,4 @@
+import { replaceRoute } from './routes.js';
 import { getEntry } from './api.js';
 import { TEAM_LIMIT } from './storage.js';
 import { STATS } from './catalog.js';
@@ -106,7 +107,7 @@ export async function compare(main, app, params) {
       const keys = [first.select.value, second.select.value];
       const query = new URLSearchParams();
       keys.forEach((name, index) => { if (name) query.set(index ? 'b' : 'a', name); });
-      history.replaceState(history.state, '', '/compare' + (query.size ? '?' + query : ''));
+      replaceRoute('/compare', query);
       if (keys.some(name => !name) || keys[0] === keys[1]) {
         result.replaceChildren(notice('Choose two different Pokémon', 'Use the selectors above to start a comparison.'));
         return;
